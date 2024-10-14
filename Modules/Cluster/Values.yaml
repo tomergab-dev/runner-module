@@ -1,0 +1,38 @@
+gitlabUrl: https://gitlab.com
+rbac:
+  clusterWideAccess: false
+  create: true
+serviceAccount:
+  name: gitlab-runner-sa
+  create: true
+concurrent: 30
+runners:
+  privileged: false
+  serviceAccount:
+    name: gitlab-runner-sa
+    create: true
+  name: "gitlab-runner"
+  executor: kubernetes
+  config: |
+    [[runners]]
+      name = "runner-{{ .Release.Name }}"
+      environment = ["HOME=/tmp", "builds_dir=/tmp"]
+      url = "{{ .Values.gitlabUrl }}"
+      executor = "kubernetes"
+      builds_dir = "/tmp"
+      [runners.kubernetes]
+        privileged = false
+        cpu_request = "350m"
+        memory_request = "250Mi"
+        service_cpu_limit = "500m"
+        service_memory_limit = "2000Mi"
+        service_cpu_request = "150m"
+        service_memory_request = "300Mi"
+        helper_cpu_limit = "1500m"
+        helper_memory_limit = "1500Mi"
+        helper_cpu_request = "150m"
+        helper_memory_request = "250Mi"
+        poll_timeout = 600
+        service_account = "gitlab-runner-sa"
+        [runners.kubernetes.node_tolerations]
+          "cicd=true" = "NoSchedule"

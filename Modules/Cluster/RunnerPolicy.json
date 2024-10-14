@@ -1,0 +1,66 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Action": [
+                "iam:PassRole"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "AllowPassRole"
+        },
+        {
+            "Action": [
+                "lambda:*"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "LambdaFullAccess"
+        },
+        {
+            "Action": [
+                "logs:*"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "CloudWatchFullAccess"
+        },
+        {
+            "Action": [
+                "secretsmanager:*"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "GetSecretValue"
+        },
+        {
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": "*",
+            "Effect": "Allow",
+            "Sid": "CyngularBuckets"
+        },
+        {
+            "Action": [
+                "imagebuilder:StartImagePipelineExecution",
+                "imagebuilder:GetImagePipeline",
+                "imagebuilder:UpdateImagePipeline"
+            ],
+            "Resource": [
+                "arn:aws:imagebuilder:*:851565895544:image-pipeline/*"
+            ],
+            "Effect": "Allow",
+            "Sid": "TriggerImageBuilder"
+        },
+        {
+            "Action": "sts:AssumeRole",
+            "Resource": [
+                "arn:aws:iam::*:role/GitlabRunnerRole",
+                "arn:aws:iam::*:role/gitlab-runner-service-account-role"
+            ],
+            "Effect": "Allow",
+            "Sid": "AsssumeRunnerRole"
+        }
+    ]
+}
