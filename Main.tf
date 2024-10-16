@@ -8,9 +8,9 @@ module "k8s_cluster" {
   private_subnet1 = module.network.private_subnet1_id
   private_subnet2 = module.network.private_subnet2_id
 
-  desired_nodes = 2
-  max_nodes = 5
-  min_nodes = 1
+  desired_nodes = var.desired_nodes
+  max_nodes = var.max_nodes
+  min_nodes = var.min_nodes
   region = var.region
 
   runner_token = var.runner_token

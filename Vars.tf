@@ -21,3 +21,27 @@ variable "region" {
   type        = string
   default = "us-west-2"
 }
+
+variable "aws_profile" {
+  description = "The aws profile"
+  type        = string
+  default = "default"
+}
+
+variable "desired_nodes" {
+  description = "The desired nodes number"
+  type        = string
+  default = "1"
+}
+
+variable "min_nodes" {
+  description = "The minimum nodes number"
+  type        = string
+  default = "1"
+}
+
+variable "max_nodes" {
+  description = "The max nodes number"
+  type        = string
+  default = "5"
+}
